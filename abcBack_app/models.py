@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
 
 # Create your models here.
 
@@ -18,6 +19,7 @@ class Evento(models.Model):
     fecha_fin = models.DateField(null=False)
     es_presencial = models.BooleanField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    fecha_creacion = models.DateTimeField(default=datetime.datetime.now())
 
 
 

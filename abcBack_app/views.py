@@ -91,7 +91,7 @@ def putEvento(request, idEvento):
 @csrf_exempt
 def getAllEventos(request, idUser):
     try:
-        eventos = Evento.objects.filter(user=idUser)
+        eventos = Evento.objects.filter(user=idUser).order_by('-fecha_creacion')
         if request.method == 'GET':
             serializer = EventoSerializer(eventos, many=True)
         return JsonResponse(serializer.data, safe=False)
