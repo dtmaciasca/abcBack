@@ -178,7 +178,7 @@ def postUser(request):
         print(request.body)
         user_model = None
         try:
-            json_user = json.loads(request.body)
+            json_user = json.loads(request.body.decode('utf-8'))
             print('JSON: ', json_user)
             username = json_user['username']
             print('username: ', username)
