@@ -175,6 +175,7 @@ def logout(request):
 @csrf_exempt
 def postUser(request):
     if request.method == 'POST':
+        print(request.body)
         user_model = None
         try:
             json_user = json.loads(request.body)
