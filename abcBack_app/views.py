@@ -18,7 +18,7 @@ from django.db import IntegrityError
 def postEvento(request):
     if request.method == 'POST':
         try:
-            json_evento = json.loads(request.body)
+            json_evento = json.loads(request.body.decode('utf-8'))
             user = User.objects.get(id=json_evento['user'])
             categoria = Categoria.objects.get(id=json_evento['categoria'])
             evento_model = Evento(
@@ -57,7 +57,7 @@ def putEvento(request, idEvento):
     if request.method == 'PUT':
         evento = Evento.objects.get(id=idEvento);
         try:
-            json_evento = json.loads(request.body)
+            json_evento = json.loads(request.body.decode('utf-8'))
             if (json_evento['categoria'] != None):
                 categoria = Categoria.objects.get(id=json_evento['categoria'])
                 evento.categoria = categoria
@@ -179,15 +179,10 @@ def postUser(request):
         user_model = None
         try:
             json_user = json.loads(request.body.decode('utf-8'))
-            print('JSON: ', json_user)
             username = json_user['username']
-            print('username: ', username)
             password = json_user['password']
-            print('password: ', password)
             first_name = json_user['first_name']
-            print('first_name: ', first_name)
             last_name = json_user['last_name']
-            print('last_name: ', last_name)
             user_model = User.objects.create_user(username=username, password=password)
             user_model.first_name = first_name
             user_model.last_name = last_name
