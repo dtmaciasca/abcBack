@@ -179,15 +179,21 @@ def postUser(request):
         user_model = None
         try:
             json_user = json.loads(request.body)
+            print('JSON: ', json_user)
             username = json_user['username']
+            print('username: ', username)
             password = json_user['password']
+            print('password: ', password)
             first_name = json_user['first_name']
+            print('first_name: ', first_name)
             last_name = json_user['last_name']
+            print('last_name: ', last_name)
             user_model = User.objects.create_user(username=username, password=password)
             user_model.first_name = first_name
             user_model.last_name = last_name
             user_model.email = username
             user_model.save()
+            print('user_model: ', user_model)
 
             return HttpResponse(serialize("json", [user_model]))
         except KeyError as e:
