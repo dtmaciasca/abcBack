@@ -105,12 +105,16 @@ def getAllEventos(request, idUser):
 def deleteEvento(request, idEvento):
     if request.method == 'DELETE':
         try:
-            a="ok"
             evento = Evento.objects.get(id=idEvento)
             print('llego ahi')
             evento.delete()
+            print('finalizo', evento)
+            if evento.id != None:
+                print('entro aqui!!: ', evento)
+                evento.delete()
             return HttpResponse(status=HTTP_200_OK)
         except Exception as ex:
+            print('error: ', ex)
             return HttpResponseBadRequest(
                 content='BAD_REQUEST: ' + str(ex),
                 status=HTTP_400_BAD_REQUEST
